@@ -127,8 +127,6 @@ const validate = (actual_hand) => {
   }
 
   // validate + tabulate individual sides
-  console.clear();
-
   for (const key in sides) {
     const side_row = document.createElement("tr");
     // let reset_indices = [];
