@@ -97,6 +97,7 @@ table tr td {
 
 #table-section {
   position: relative;
+  margin: 0 auto;
 }
 
 #table-section table {
@@ -121,5 +122,14 @@ table tr td {
 @media only screen and (max-width: 576px) {
   .columns {
     display: block;
+  }
+
+  #result-section.columns {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  #table-section {
+    overflow: auto;
   }
 }
