@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: auto">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="script.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="./styles.css">
+    <title>Formula v24</title>
+</head>
+
+<body>
+    <div class="container">
+        <section id="info-section">
+            <h1 id="instruction"></h1>
+            <div id="leaving" class="columns">
+                <button id="banker" class="is-danger column">Banker</button>
+                <button id="player" class="is-info column">Player</button>
+            </div>
+            <div id="prediction" class="columns">
+                <button id="win" class="is-success column">Win</button>
+                <button id="lose" class="is-danger column">Lose</button>
+            </div>
+            <div class="columns">
+                <p id="total" class="column is-info">Total: 0</p>
+                <p id="hand" class="column is-info">Current Hand: 0</p>
+            </div>
+        </section>
+        <section id="shoe-section" class="table-container">
+            <table id="shoe">
+                <tr></tr>
+            </table>
+            <table id="calc"></table>
+        </section>
+        <section id="result-section" class="columns">
+            <section id="table-section" class="column columns">
+                <table id="calcB"></table>
+                <table id="calcA"></table>
+            </section>
+            <table id="final"></table>
+        </section>
+    </div>
+</body>
+
+</html>
