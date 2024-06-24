@@ -163,7 +163,7 @@ const predict = () => {
   }
 
   // check max bet
-  if (total <= -max_bet * base_bet) {
+  if (bet >= max_bet * base_bet) {
     const confirmed = window.confirm(
       `You have reached the maximum allowed bet\nCurrent Bet: ${bet} - please stop playing.\nPressing "Okay" will reset the current session`
     );
