@@ -1,7 +1,7 @@
 import { generateBet } from "./helpers.js";
 
 class Side {
-  constructor(max_leaving_hands, invert) {
+  constructor(max_leaving_hands, invert, base_bet) {
     // constant attributes
     this.max_leaving_hands = max_leaving_hands;
 
@@ -9,6 +9,7 @@ class Side {
     this.leaving_hands = max_leaving_hands;
     this.shoe = [];
     this.bet_index = 0;
+    this.base_bet = base_bet;
     this.prediction = null;
     this.bet = null;
     // this.global_reset = false;
@@ -25,7 +26,7 @@ class Side {
       this.prediction = this.invert
         ? this.shoe[this.shoe.length - 2]
         : this.shoe[this.shoe.length - 2] ^ 1;
-      this.bet = generateBet(this.bet_index++);
+      this.bet = generateBet(this.bet_index++) * this.base_bet;
     }
   }
 

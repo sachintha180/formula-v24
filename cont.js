@@ -1,11 +1,12 @@
 import { generateBet } from "./helpers.js";
 
 class Cont {
-  constructor(invert) {
+  constructor(invert, base_bet) {
     // variable attributes
     this.leaving_hands = 2;
     this.shoe = [];
     this.bet_index = 0;
+    this.base_bet = base_bet;
     // this.continue refers to vertical (when invert = false)
     //               refers to horizontal (when invert = true)
     this.continue = false;
@@ -32,7 +33,7 @@ class Cont {
       this.prediction = this.continue
         ? this.shoe[this.shoe.length - 1]
         : this.shoe[this.shoe.length - 1] ^ 1;
-      this.bet = generateBet(++this.bet_index);
+      this.bet = generateBet(++this.bet_index) * this.base_bet;
     }
   }
 

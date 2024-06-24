@@ -2,14 +2,25 @@ import { Cont } from "./cont.js";
 import { Side } from "./side.js";
 
 // intialize global variables
+let base_bet = 1;
 let shoe = [];
 let sides = {
-  A: { data: [new Side(2, false), new Cont(false)], limit: 10, table: null },
-  B: { data: [new Side(2, true), new Cont(true)], limit: 5, table: null },
+  A: {
+    data: [new Side(2, false, base_bet), new Cont(false, base_bet)],
+    limit: 10,
+    table: null,
+  },
+  B: {
+    data: [new Side(2, true, base_bet), new Cont(true, base_bet)],
+    limit: 5,
+    table: null,
+  },
 };
 let prediction = null;
 let bet = null;
 let total = 0;
+let target = 10;
+let max_bet = 12;
 
 // initialize global DOM elements
 let instruction_lbl;
@@ -23,6 +34,9 @@ let win_btn;
 let lose_btn;
 let shoe_tbl;
 let final_tbl;
+let base_bet_in;
+let max_bet_in;
+let target_in;
 
 const init = () => {
   // label initializations
@@ -39,6 +53,11 @@ const init = () => {
   player_btn = document.querySelector("#player");
   win_btn = document.querySelector("#win");
   lose_btn = document.querySelector("#lose");
+
+  // input initializations
+  base_bet_in = document.querySelector("#base-bet");
+  max_bet_in = document.querySelector("#max-bet");
+  target_in = document.querySelector("#target");
 
   // table initializations
   shoe_tbl = document.querySelector("#shoe tr");
@@ -63,6 +82,24 @@ const init = () => {
 
   lose_btn.addEventListener("click", () => {
     validate(prediction ^ 1);
+  });
+
+  // add input event listeners
+  base_bet_in.addEventListener("change", () => {
+    base_bet = base_bet_in.value;
+    for (const key in sides) {
+      for (let side of sides[key].data) {
+        side.base_bet = base_bet_in.value;
+      }
+    }
+  });
+
+  max_bet_in.addEventListener("change", () => {
+    max_bet = max_bet_in.value;
+  });
+
+  target_in.addEventListener("change", () => {
+    target = target_in.value;
   });
 
   // call intial predict
@@ -111,6 +148,28 @@ const predict = () => {
 
     // update instruction label
     instruction_lbl.innerHTML = "Leave one hand";
+  }
+
+  // check target
+  if (total >= target * base_bet) {
+    const confirmed = window.confirm(
+      `You have reached the winning target.\nTotal: +${total} (Target: +${
+        target * base_bet
+      })\nPressing "Okay" will reset the current session`
+    );
+    if (confirmed) {
+      window.location.reload();
+    }
+  }
+
+  // check max bet
+  if (total <= -max_bet * base_bet) {
+    const confirmed = window.confirm(
+      `You have reached the maximum allowed bet\nCurrent Bet: ${bet} - please stop playing.\nPressing "Okay" will reset the current session`
+    );
+    if (confirmed) {
+      window.location.reload();
+    }
   }
 };
 
@@ -179,7 +238,11 @@ const validate = (actual_hand) => {
     if (sides[key].data.length < sides[key].limit + 1) {
       // prepare additional side
       const prev_side = sides[key].data[sides[key].data.length - 2];
-      const side = new Side(prev_side.max_leaving_hands + 1, prev_side.invert);
+      const side = new Side(
+        prev_side.max_leaving_hands + 1,
+        prev_side.invert,
+        base_bet
+      );
       side.leaving_hands -= sides[key].data.length - 1;
 
       // add side to sides list
