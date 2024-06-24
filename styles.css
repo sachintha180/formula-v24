@@ -17,18 +17,43 @@ body {
   font-family: var(--font-family);
 }
 
-p {
+p,
+label {
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   border-radius: var(--bd-radius);
 }
 
-button {
+button,
+input {
   color: var(--fg-color);
   font-family: var(--font-family);
+  font-size: 1rem;
   border: 1px solid var(--fg-color);
   padding: 0.5rem 1rem;
   border-radius: var(--bd-radius);
+}
+
+input {
+  color: var(--bg-color);
+}
+
+#controls-section {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--fg-color);
+}
+
+.control-group {
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  margin: 0;
 }
 
 section {
